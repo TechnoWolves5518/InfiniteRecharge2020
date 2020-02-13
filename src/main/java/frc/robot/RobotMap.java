@@ -6,7 +6,7 @@ public class RobotMap
 {
     /// Drive Train Safety Toggles ///
     public static boolean driveTrainSafety = true;
-    public static double driveSafetySpeedMod = 0.7;
+    public static double driveSafetySpeedMod = 1;
 
     // Spinner Safety
     public static double spinnerSafetySpeedMod = .5;

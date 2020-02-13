@@ -18,9 +18,9 @@ public class SpinnerMotorSubsystem extends Subsystem
     // There is a debug at the end  
 
     public void setMotors(final double speed, double spinnerSafetySpeedMod)
-    { 
-        System.out.println("INTO setmotors");
-        spinnerMotor.set(.5);
+    {
+       
+        spinnerMotor.set(ControlMode.PercentOutput, speed);
            
        /// DEBUG CODE ///
        if (RobotMap.driveDebug)
