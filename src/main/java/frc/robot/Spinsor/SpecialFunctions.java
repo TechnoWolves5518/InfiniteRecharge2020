@@ -76,8 +76,12 @@ public class SpecialFunctions extends CommandBase
         //when right bumper is held down, motor is activated
         if (spinsor.getRawButton(OI.rightBumper));
         {
+<<<<<<< HEAD
             System.out.println("Pressing bubmper to activate spinner");
             spinnerSubsystem.setMotors(1, RobotMap.spinnerSafetySpeedMod);
+=======
+            spinnerSubsystem.setMotors(.75, RobotMap.spinnerSafetySpeedMod);
+>>>>>>> Changed small things, formattting
         }
 
     }

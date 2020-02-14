@@ -50,7 +50,11 @@ public class DriveTrainCommand extends CommandBase
         /// If both bumpers are pressed, don't let either safety disable /// 
         if ((driver.getRawButton(OI.leftTrigger)) && (driver.getRawButton(OI.leftBumper)))
             {
+<<<<<<< HEAD
               //  System.out.println("insert debug thing here");
+=======
+                System.out.println("Both Bumpers Pressed, Safeties enabled");
+>>>>>>> Changed small things, formattting
             }
         else
         {

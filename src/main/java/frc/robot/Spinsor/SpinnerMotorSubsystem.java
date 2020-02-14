@@ -23,6 +23,7 @@ public class SpinnerMotorSubsystem extends Subsystem
         spinnerMotor.set(ControlMode.PercentOutput, speed);
            
        /// DEBUG CODE ///
+       
        if (RobotMap.driveDebug)
        {
            System.out.println("Spinner Speed : " + speed);
