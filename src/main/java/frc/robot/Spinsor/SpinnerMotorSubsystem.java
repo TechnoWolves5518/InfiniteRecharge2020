@@ -13,6 +13,11 @@ public class SpinnerMotorSubsystem extends Subsystem
     // Motor Definitions
     public CANSparkMax spinnerMotor = new CANSparkMax(RobotMap.spinnerMotorCan, MotorType.kBrushless);
 
+<<<<<<< HEAD
+=======
+    public TalonSRX spinnerMotor = new TalonSRX(RobotMap.spinnerMotor);
+    public double speedOSpinner;
+>>>>>>> Code update 2_17_2020
     
     // This function sets motor speeds, will set to static speed when bumper is pressed
     // There is a debug at the end  
@@ -21,6 +26,7 @@ public class SpinnerMotorSubsystem extends Subsystem
     {
        
         spinnerMotor.set(ControlMode.PercentOutput, speed);
+        
            
        /// DEBUG CODE ///
        

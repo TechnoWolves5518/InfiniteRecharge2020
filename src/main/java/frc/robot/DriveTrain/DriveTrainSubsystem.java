@@ -18,38 +18,32 @@ public class DriveTrainSubsystem extends Subsystem
         /// Right Side ///
     public VictorSPX rightMotorMaster = new VictorSPX(RobotMap.rightMotorMaster);
     public VictorSPX rightMotorSlave = new VictorSPX(RobotMap.rightMotorSlave);
+
+
+    /*//switch statement arguments
+    public int x = 0;
+    public static int cubeNumber;
+    public static int safetySpeedNumber;
+    public static int slowModeNumber;*/
     
     /// This function sets motor speeds ///
-        /// It contains nested conditionals; one that checks for the safety toggle, and one that checks which side is being set ///
-        /// There is a debug at the end /// 
-    public void setMotors(final double speed, final String side, boolean speedMod) 
+    /// It contains nested conditionals; one that checks for the safety toggle, and one that checks which side is being set ///
+    /// There is a debug at the end /// 
+    public void setMotors(final double speed, final String side, final boolean speedMod, final boolean cubicSafety, final boolean slowMode) 
     {
-       if (RobotMap.driveTrainSafety)
+       
+       
+       if (side == "left")
        {
-           if (side == "left")
-           {
-               leftMotorSlave.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, true));
-               leftMotorMaster.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, true));
-           }
-           if (side == "right")
-           {
-               rightMotorSlave.set(ControlMode.PercentOutput, configSpeed(speed, speedMod, true));
-               rightMotorMaster.set(ControlMode.PercentOutput, configSpeed(speed, speedMod, true));
-           }
-       }
-       else
-       {
-           if (side == "left")
-           {
-            leftMotorSlave.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, false));
-            leftMotorMaster.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, false));
-           }
-           if (side == "right")
-           {
-            rightMotorSlave.set(ControlMode.PercentOutput, configSpeed(speed, speedMod, false));
-            rightMotorMaster.set(ControlMode.PercentOutput, configSpeed(speed, speedMod, false));
-           }
-       }
+            leftMotorSlave.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, cubicSafety, slowMode ));
+            leftMotorMaster.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, cubicSafety, slowMode));
+        }
+        if (side == "right")
+        {
+            rightMotorSlave.set(ControlMode.PercentOutput, configSpeed(speed, speedMod, cubicSafety, slowMode));
+            rightMotorMaster.set(ControlMode.PercentOutput, configSpeed(speed, speedMod, cubicSafety, slowMode));
+        }
+       
 
        /// DEBUG CODE ///
        if (RobotMap.driveDebug)
@@ -59,33 +53,84 @@ public class DriveTrainSubsystem extends Subsystem
     }
 
     /// This function returns a double based on the values of two safety variables ///
-    public static double configSpeed(final double speed, final boolean speedMod, final boolean safetyCube)
+    public static double configSpeed(final double speed, final boolean speedMod, final boolean cubicSafety, final boolean slowMode)
     {
-        final double returnVar;
 
-        /// If cubic safety AND speed modifiers enabled... ///
-        if ((safetyCube) && (speedMod))
+        final double returnVar;
+        if (slowMode == true)
         {
-            /// Return speed**3 * speed modifier ///
+            returnVar = speed * RobotMap.driveSlowMode;
+        }    
+        else
+        {
+            /// If cubic safety AND speed modifiers enabled... ///
+            if ((cubicSafety) && (speedMod))
+            {
+            ///Return speed**3 * speed modifier ///
             returnVar = ((Math.pow(speed, 3)) * RobotMap.driveSafetySpeedMod);
+            }
+            /// If cubic safety enabled but NOT speed modifiers... ///
+            else if ((cubicSafety) && (!speedMod))
+            {
+                /// Return speed**3 ///
+                returnVar = Math.pow(speed, 3);
+            }
+            /// If speed modifiers enabled but NOT cubic safety... ///
+            else if ((!cubicSafety) && (speedMod))
+            {
+                /// Return speed * speed modifier ///
+                returnVar = speed * (RobotMap.driveSafetySpeedMod);
+            }
+            /// If neither cubic safety or speed modifiers enabled... ///
+            else if ((!cubicSafety) && (!speedMod))
+            {
+                /// Return raw speed ///
+                returnVar = speed;
+            }
+            /// IF NONE OF THE ABOVE ARE TRUE (somehow...) ///
+            else
+            {
+                /// DEBUG CODE ///
+                if (RobotMap.driveDebug)
+                {
+                // System.out.println("Error in configSpeed");
+                }
+                /// Return 0 ///
+                return 0;
+            }
         }
-        /// If cubic safety enabled but NOT speed modifiers... ///
-        else if ((safetyCube) && (!speedMod))
+        
+         /* if (safetyCube)
         {
-            /// Return speed**3 ///
+            cubeNumber = 1;
+        }
+        if (speedMod)
+        {
+            safetySpeedNumber = 2;
+        }
+        if (drive)
+
+        switch (x) {
+            case 1:
+            // Only Cubic Trigger pressed
+            /// Return speed**3 
             returnVar = Math.pow(speed, 3);
-        }
-        /// If speed modifiers enabled but NOT cubic safety... ///
-        else if ((!safetyCube) && (speedMod))
-        {
+            break;
+            case 2:
+            // Only Left Bumper speed mod pressed
             /// Return speed * speed modifier ///
             returnVar = speed * (RobotMap.driveSafetySpeedMod);
-        }
-        /// If neither cubic safety or speed modifiers enabled... ///
-        else if ((!safetyCube) && (!speedMod))
-        {
+            break;
+            case 3:
+            // Only Right Bumper pressed
+            // Slow mode for wheel turning
+            returnVar = speed * (RobotMap.driveSlowMode);
+            break;
+            case 4:
+            // Both left trigger and left bumper are pressed
             /// Return raw speed ///
             returnVar = speed;
+<<<<<<< HEAD
         }
         /// IF NONE OF THE ABOVE ARE TRUE (somehow...) ///
         else
@@ -98,11 +143,39 @@ public class DriveTrainSubsystem extends Subsystem
             /// Return 0 ///
             return 0;
         }
+=======
+            break;
+            case 5:
+            // If cubic mod and slow mode mod are pressed
+            /// Return speed**3 * slow mode speed modifier ///
+            returnVar = ((Math.pow(speed, 3)) * RobotMap.driveSlowMode);
+            break;
+            case 6:
+            // lefft and right bumper are pressed
+            //use slow mode, ignore speed mod
+            returnVar = speed * (RobotMap.driveSlowMode);
+            break;
+            case 7:
+            // trigger and both bumpers are pressed
+            // return slow mode
+            returnVar = speed * (RobotMap.driveSlowMode);
+            break;
+            default:
+            // use speed mod and cubic safety, slow mode not activated
+            /// Return speed**3 * speed modifier ///
+            returnVar = ((Math.pow(speed, 3)) * RobotMap.driveSafetySpeedMod);
+            break;
+        } */
+>>>>>>> Code update 2_17_2020
 
         /// Final return statement ///
         if (RobotMap.driveDebug)
         {
+<<<<<<< HEAD
           //  System.out.println("Cubic Enabled : " + safetyCube + "\n Cap Enabled : " + speedMod + "\n Speed Input : " + speed + "\n Speed Output " + returnVar);
+=======
+            //System.out.println("Cubic Enabled : " + safetyCube + "\n Cap Enabled : " + speedMod + "\n Speed Input : " + speed + "\n Speed Output " + returnVar);
+>>>>>>> Code update 2_17_2020
         }
         return returnVar;
     }

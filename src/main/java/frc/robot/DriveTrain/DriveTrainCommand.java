@@ -26,9 +26,14 @@ public class DriveTrainCommand extends CommandBase
     /// Null speed variables ///
     public double forwardSpeedLeft, forwardSpeedRight;
     public boolean speedModToggle = true;
+    public boolean slowModeToggle = false;
 
     // Autonomous variable
     public boolean autoMode = false;
+    public boolean slowMode;
+    public boolean cubicSafety;
+    public boolean safetyMod;
+
     
     @Override
     protected void execute()
@@ -38,6 +43,9 @@ public class DriveTrainCommand extends CommandBase
         /// SETS SPEED VARIABLES EQUAL TO STICK VALUES ///
         forwardSpeedLeft = driver.getRawAxis(OI.leftStickY);
         forwardSpeedRight = driver.getRawAxis(OI.rightStickY);
+        slowMode = driver.getRawButton(OI.rightBumper);
+        cubicSafety = driver.getRawButton(OI.leftTrigger);
+        safetyMod = driver.getRawButton(OI.leftBumper);
 
         checkBumpers();
         
@@ -46,9 +54,10 @@ public class DriveTrainCommand extends CommandBase
 
     /// Checks for bumpers, which manually disable safeties ///
     public void checkBumpers()
-    {
-        /// If both bumpers are pressed, don't let either safety disable /// 
-        if ((driver.getRawButton(OI.leftTrigger)) && (driver.getRawButton(OI.leftBumper)))
+    {            
+        
+        /// If both left bumper and trigger are pressed, don't let either safety disable /// 
+        if ((cubicSafety == true) && (safetyMod == true))
             {
 <<<<<<< HEAD
               //  System.out.println("insert debug thing here");
@@ -59,12 +68,12 @@ public class DriveTrainCommand extends CommandBase
         else
         {
             /// If left trigger pressed, disable speed modifiers ///
-            if (driver.getRawButton(OI.leftTrigger))
+            if (safetyMod == true)
                 {
                     speedModToggle = false;
                 }
             /// If left bumper pressed, disable cubic safety ///
-            if (driver.getRawButton(OI.leftBumper))
+            if (cubicSafety == true)
                 {
                     RobotMap.driveTrainSafety = !RobotMap.driveTrainSafety;
                 }}
@@ -77,48 +86,60 @@ public class DriveTrainCommand extends CommandBase
     {
         if (autoMode == true)
         {
-            driveSubsystem.setMotors(forwardSpeedLeft, "left", speedModToggle);
-            driveSubsystem.setMotors(forwardSpeedRight, "right", speedModToggle);
+            driveSubsystem.setMotors(forwardSpeedLeft, "left", cubicSafety, speedModToggle, slowMode) ;
+            driveSubsystem.setMotors(forwardSpeedRight, "right", cubicSafety, speedModToggle, slowMode);
 
             if (RobotMap.driveDebug)
             {
-                driveSubsystem.setMotors(0, "left", speedModToggle);
-                System.out.println("Autonomous code not working");
+                driveSubsystem.setMotors(0, "left", cubicSafety, speedModToggle, slowMode);
+                //System.out.println("Autonomous code not working");
             }
         }
 
         /// CHECKS IF STICK IS BEYOND DEADZONE. SETS MOTOR IF SO, PRINTS ERROR IF NOT ///
         if (Math.abs(forwardSpeedLeft) > RobotMap.deadzone) 
         {
-            driveSubsystem.setMotors(forwardSpeedLeft, "left", speedModToggle);
+            driveSubsystem.setMotors(forwardSpeedLeft, "left", cubicSafety, speedModToggle, autoMode);
         }
         else
         {
             /// DEBUG CODE ///
             if (RobotMap.driveDebug)
             {
+<<<<<<< HEAD
                 driveSubsystem.setMotors(0, "left", speedModToggle);
+=======
+                driveSubsystem.setMotors(0, "left", cubicSafety, speedModToggle, slowMode);
+>>>>>>> Code update 2_17_2020
                 //System.out.println("Left Stick not above Deadzone");
             }
         }
         /// CHECKS IF STICK IS BEYOND DEADZONE. SETS MOTOR IF SO, PRINTS ERROR IF NOT ///
         if (Math.abs(forwardSpeedRight) > RobotMap.deadzone)
         {
-            driveSubsystem.setMotors(forwardSpeedRight, "right", speedModToggle);
+            driveSubsystem.setMotors(forwardSpeedRight, "right", cubicSafety, speedModToggle, slowMode);
         }
         else
         {
             /// DEBUG CODE ///
             if (RobotMap.driveDebug)
             {
+<<<<<<< HEAD
                 driveSubsystem.setMotors(0, "right", speedModToggle);
+=======
+                driveSubsystem.setMotors(0, "right", cubicSafety, speedModToggle, slowMode);
+>>>>>>> Code update 2_17_2020
                // System.out.println("Right Stick not above Deadzone");
             }
         }
         /// DEBUG CODE ///
         if (RobotMap.debug)
         {
+<<<<<<< HEAD
           //  System.out.println("DriveTrainCommand Driver Code");
+=======
+            //System.out.println("DriveTrainCommand Driver Code");
+>>>>>>> Code update 2_17_2020
         }
         
     }

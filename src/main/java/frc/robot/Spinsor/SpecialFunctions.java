@@ -44,7 +44,12 @@ public class SpecialFunctions extends CommandBase
             sensorOff = true;
         }
 
-        checkSensor();
+        System.out.println("should be false " + spinnerRight);
+        spinnerRight = spinsor.getAButton();
+        System.out.println(spinnerRight);
+        System.out.println("Initialize Special Functions");
+
+        //checkSensor();
 
         motorSpinnerCode();
     }
@@ -68,12 +73,16 @@ public class SpecialFunctions extends CommandBase
         {
            // System.out.println("Sensor Not Activated");
         }
+    
         
     }
 
     public void motorSpinnerCode()
     {
+        System.out.println("spinner start");
+        System.out.println(spinnerRight);
         //when right bumper is held down, motor is activated
+<<<<<<< HEAD
         if (spinsor.getRawButton(OI.rightBumper));
         {
 <<<<<<< HEAD
@@ -82,6 +91,14 @@ public class SpecialFunctions extends CommandBase
 =======
             spinnerSubsystem.setMotors(.75, RobotMap.spinnerSafetySpeedMod);
 >>>>>>> Changed small things, formattting
+=======
+        if (spinnerRight) {
+            spinnerSubsystem.setMotors(1, RobotMap.spinnerSafetySpeedMod);
+            System.out.println("spinner, end of lopp");
+        }
+        else {
+            spinnerSubsystem.setMotors(0, RobotMap.spinnerSafetySpeedMod);
+>>>>>>> Code update 2_17_2020
         }
 
     }
