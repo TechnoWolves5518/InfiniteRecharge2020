@@ -33,24 +33,7 @@ public class SpecialFunctions extends CommandBase
     @Override
     protected void execute()
     {
-        //gathers information on whether or not the X or B button has been pressed last
-        if (spinsor.getRawButton(OI.xButton)){
-            sensorOn = true;
-            sensorOff = false;
-        }
-        if (spinsor.getRawButton(OI.bButton))
-        {
-            sensorOn = false;
-            sensorOff = true;
-        }
-
-        System.out.println("should be false " + spinnerRight);
-        spinnerRight = spinsor.getAButton();
-        System.out.println(spinnerRight);
-        System.out.println("Initialize Special Functions");
-
-        //checkSensor();
-
+        checkSensor();
         motorSpinnerCode();
     }
 
@@ -73,33 +56,20 @@ public class SpecialFunctions extends CommandBase
         {
            // System.out.println("Sensor Not Activated");
         }
-    
         
     }
 
     public void motorSpinnerCode()
     {
-        System.out.println("spinner start");
-        System.out.println(spinnerRight);
         //when right bumper is held down, motor is activated
-<<<<<<< HEAD
-        if (spinsor.getRawButton(OI.rightBumper));
+        if (spinsor.getAButton())
         {
-<<<<<<< HEAD
-            System.out.println("Pressing bubmper to activate spinner");
             spinnerSubsystem.setMotors(1, RobotMap.spinnerSafetySpeedMod);
-=======
-            spinnerSubsystem.setMotors(.75, RobotMap.spinnerSafetySpeedMod);
->>>>>>> Changed small things, formattting
-=======
-        if (spinnerRight) {
-            spinnerSubsystem.setMotors(1, RobotMap.spinnerSafetySpeedMod);
-            System.out.println("spinner, end of lopp");
-        }
-        else {
+        } else
+        {
             spinnerSubsystem.setMotors(0, RobotMap.spinnerSafetySpeedMod);
->>>>>>> Code update 2_17_2020
         }
+        
 
     }
 

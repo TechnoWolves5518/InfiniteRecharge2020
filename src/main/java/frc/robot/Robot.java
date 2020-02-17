@@ -119,7 +119,6 @@ public class Robot extends TimedRobot
         break;
       default:
         // Put default auto code here
-<<<<<<< HEAD
         // Move the robot forward and stop after leaving line but before hitting middle area
         try
         {
@@ -142,10 +141,6 @@ public class Robot extends TimedRobot
         }
       }  
     
-=======
-        
-    }
->>>>>>> Code update 2_17_2020
   }
 
   /**

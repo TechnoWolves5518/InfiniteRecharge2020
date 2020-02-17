@@ -32,10 +32,9 @@ public class DriveTrainSubsystem extends Subsystem
     public void setMotors(final double speed, final String side, final boolean speedMod, final boolean cubicSafety, final boolean slowMode) 
     {
        
-       
-       if (side == "left")
-       {
-            leftMotorSlave.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, cubicSafety, slowMode ));
+        if (side == "left")
+        {
+            leftMotorSlave.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, cubicSafety, slowMode));
             leftMotorMaster.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, cubicSafety, slowMode));
         }
         if (side == "right")
@@ -84,7 +83,7 @@ public class DriveTrainSubsystem extends Subsystem
             /// If neither cubic safety or speed modifiers enabled... ///
             else if ((!cubicSafety) && (!speedMod))
             {
-                /// Return raw speed ///
+                /// Return raw speed ///asdkljhsdfa
                 returnVar = speed;
             }
             /// IF NONE OF THE ABOVE ARE TRUE (somehow...) ///
@@ -130,20 +129,6 @@ public class DriveTrainSubsystem extends Subsystem
             // Both left trigger and left bumper are pressed
             /// Return raw speed ///
             returnVar = speed;
-<<<<<<< HEAD
-        }
-        /// IF NONE OF THE ABOVE ARE TRUE (somehow...) ///
-        else
-        {
-            /// DEBUG CODE ///
-            if (RobotMap.driveDebug)
-            {
-              //  System.out.println("Error in configSpeed");
-            }
-            /// Return 0 ///
-            return 0;
-        }
-=======
             break;
             case 5:
             // If cubic mod and slow mode mod are pressed
@@ -166,16 +151,11 @@ public class DriveTrainSubsystem extends Subsystem
             returnVar = ((Math.pow(speed, 3)) * RobotMap.driveSafetySpeedMod);
             break;
         } */
->>>>>>> Code update 2_17_2020
 
         /// Final return statement ///
         if (RobotMap.driveDebug)
         {
-<<<<<<< HEAD
-          //  System.out.println("Cubic Enabled : " + safetyCube + "\n Cap Enabled : " + speedMod + "\n Speed Input : " + speed + "\n Speed Output " + returnVar);
-=======
             //System.out.println("Cubic Enabled : " + safetyCube + "\n Cap Enabled : " + speedMod + "\n Speed Input : " + speed + "\n Speed Output " + returnVar);
->>>>>>> Code update 2_17_2020
         }
         return returnVar;
     }

@@ -1,7 +1,9 @@
 package frc.robot.Spinsor;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+//import com.revrobotics.CANSparkMax;
+//import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -11,13 +13,10 @@ public class SpinnerMotorSubsystem extends Subsystem
 {
 
     // Motor Definitions
-    public CANSparkMax spinnerMotor = new CANSparkMax(RobotMap.spinnerMotorCan, MotorType.kBrushless);
+    //public TalonSRX spinnerMotor = new CANSparkMax(RobotMap.spinnerMotorCan, MotorType.kBrushless);
 
-<<<<<<< HEAD
-=======
-    public TalonSRX spinnerMotor = new TalonSRX(RobotMap.spinnerMotor);
+    public TalonSRX spinnerMotor = new TalonSRX(RobotMap.spinnerMotorCan);
     public double speedOSpinner;
->>>>>>> Code update 2_17_2020
     
     // This function sets motor speeds, will set to static speed when bumper is pressed
     // There is a debug at the end  

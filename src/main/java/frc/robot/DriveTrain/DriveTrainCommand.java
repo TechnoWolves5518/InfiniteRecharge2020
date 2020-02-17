@@ -27,25 +27,25 @@ public class DriveTrainCommand extends CommandBase
     public double forwardSpeedLeft, forwardSpeedRight;
     public boolean speedModToggle = true;
     public boolean slowModeToggle = false;
+    
 
-    // Autonomous variable
-    public boolean autoMode = false;
+    // other variables
+    public boolean autoMode;
     public boolean slowMode;
     public boolean cubicSafety;
     public boolean safetyMod;
-
     
     @Override
     protected void execute()
     {
 
-        
         /// SETS SPEED VARIABLES EQUAL TO STICK VALUES ///
         forwardSpeedLeft = driver.getRawAxis(OI.leftStickY);
         forwardSpeedRight = driver.getRawAxis(OI.rightStickY);
         slowMode = driver.getRawButton(OI.rightBumper);
+        safetyMod = driver.getRawButton(OI.rightBumper);
         cubicSafety = driver.getRawButton(OI.leftTrigger);
-        safetyMod = driver.getRawButton(OI.leftBumper);
+
 
         checkBumpers();
         
@@ -54,16 +54,11 @@ public class DriveTrainCommand extends CommandBase
 
     /// Checks for bumpers, which manually disable safeties ///
     public void checkBumpers()
-    {            
-        
-        /// If both left bumper and trigger are pressed, don't let either safety disable /// 
+    {
+        /// If both bumpers are pressed, don't let either safety disable /// 
         if ((cubicSafety == true) && (safetyMod == true))
             {
-<<<<<<< HEAD
-              //  System.out.println("insert debug thing here");
-=======
                 System.out.println("Both Bumpers Pressed, Safeties enabled");
->>>>>>> Changed small things, formattting
             }
         else
         {
@@ -86,60 +81,49 @@ public class DriveTrainCommand extends CommandBase
     {
         if (autoMode == true)
         {
-            driveSubsystem.setMotors(forwardSpeedLeft, "left", cubicSafety, speedModToggle, slowMode) ;
-            driveSubsystem.setMotors(forwardSpeedRight, "right", cubicSafety, speedModToggle, slowMode);
+            driveSubsystem.setMotors(forwardSpeedLeft, "left", speedModToggle,false,false);
+            driveSubsystem.setMotors(forwardSpeedRight, "right", speedModToggle,false,false);
 
             if (RobotMap.driveDebug)
             {
-                driveSubsystem.setMotors(0, "left", cubicSafety, speedModToggle, slowMode);
-                //System.out.println("Autonomous code not working");
+                driveSubsystem.setMotors(0, "left", speedModToggle,false,false);
+                driveSubsystem.setMotors(0, "right", speedModToggle,false,false);
+                System.out.println("Autonomous code not working");
             }
         }
 
         /// CHECKS IF STICK IS BEYOND DEADZONE. SETS MOTOR IF SO, PRINTS ERROR IF NOT ///
         if (Math.abs(forwardSpeedLeft) > RobotMap.deadzone) 
         {
-            driveSubsystem.setMotors(forwardSpeedLeft, "left", cubicSafety, speedModToggle, autoMode);
+            driveSubsystem.setMotors(forwardSpeedLeft, "left", speedModToggle, cubicSafety, slowMode);
         }
         else
         {
             /// DEBUG CODE ///
             if (RobotMap.driveDebug)
             {
-<<<<<<< HEAD
-                driveSubsystem.setMotors(0, "left", speedModToggle);
-=======
-                driveSubsystem.setMotors(0, "left", cubicSafety, speedModToggle, slowMode);
->>>>>>> Code update 2_17_2020
+                driveSubsystem.setMotors(0, "left", speedModToggle, cubicSafety, slowMode);
                 //System.out.println("Left Stick not above Deadzone");
             }
         }
         /// CHECKS IF STICK IS BEYOND DEADZONE. SETS MOTOR IF SO, PRINTS ERROR IF NOT ///
         if (Math.abs(forwardSpeedRight) > RobotMap.deadzone)
         {
-            driveSubsystem.setMotors(forwardSpeedRight, "right", cubicSafety, speedModToggle, slowMode);
+            driveSubsystem.setMotors(forwardSpeedRight, "right", speedModToggle, cubicSafety, slowMode);
         }
         else
         {
             /// DEBUG CODE ///
             if (RobotMap.driveDebug)
             {
-<<<<<<< HEAD
-                driveSubsystem.setMotors(0, "right", speedModToggle);
-=======
-                driveSubsystem.setMotors(0, "right", cubicSafety, speedModToggle, slowMode);
->>>>>>> Code update 2_17_2020
+                driveSubsystem.setMotors(0, "right", speedModToggle, cubicSafety, slowMode);
                // System.out.println("Right Stick not above Deadzone");
             }
         }
         /// DEBUG CODE ///
         if (RobotMap.debug)
         {
-<<<<<<< HEAD
           //  System.out.println("DriveTrainCommand Driver Code");
-=======
-            //System.out.println("DriveTrainCommand Driver Code");
->>>>>>> Code update 2_17_2020
         }
         
     }
