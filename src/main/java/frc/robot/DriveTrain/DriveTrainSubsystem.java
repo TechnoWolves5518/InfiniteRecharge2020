@@ -34,13 +34,16 @@ public class DriveTrainSubsystem extends Subsystem
        
         if (side == "left")
         {
-            leftMotorSlave.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, cubicSafety, slowMode));
-            leftMotorMaster.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, cubicSafety, slowMode));
+            System.out.println("left side activated");
+            leftMotorSlave.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, cubicSafety, slowMode, "left"));
+            leftMotorMaster.set(ControlMode.PercentOutput, configSpeed(-speed, speedMod, cubicSafety, slowMode, "left"));
         }
         if (side == "right")
         {
-            rightMotorSlave.set(ControlMode.PercentOutput, configSpeed(speed, speedMod, cubicSafety, slowMode));
-            rightMotorMaster.set(ControlMode.PercentOutput, configSpeed(speed, speedMod, cubicSafety, slowMode));
+            System.out.println("right side activated");
+            rightMotorSlave.set(ControlMode.PercentOutput, configSpeed(speed, speedMod, cubicSafety, slowMode, "right"));
+            rightMotorMaster.set(ControlMode.PercentOutput, configSpeed(speed, speedMod, cubicSafety, slowMode, "right"));
+
         }
        
 
@@ -52,13 +55,14 @@ public class DriveTrainSubsystem extends Subsystem
     }
 
     /// This function returns a double based on the values of two safety variables ///
-    public static double configSpeed(final double speed, final boolean speedMod, final boolean cubicSafety, final boolean slowMode)
+    public static double configSpeed(final double speed, final boolean speedMod, final boolean cubicSafety, final boolean slowMode, final String side)
     {
 
         final double returnVar;
         if (slowMode == true)
         {
             returnVar = speed * RobotMap.driveSlowMode;
+            System.out.println("slow mode activated for " + side);
         }    
         else
         {
@@ -85,6 +89,7 @@ public class DriveTrainSubsystem extends Subsystem
             {
                 /// Return raw speed ///asdkljhsdfa
                 returnVar = speed;
+                System.out.println(side + " " + speed);
             }
             /// IF NONE OF THE ABOVE ARE TRUE (somehow...) ///
             else
