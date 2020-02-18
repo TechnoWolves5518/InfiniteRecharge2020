@@ -32,6 +32,7 @@ public class Robot extends TimedRobot
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   Command autonomousCommand;
+  int count;
 
   public static OI oi;
 
@@ -79,6 +80,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
+    count = 0;
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
@@ -88,64 +90,43 @@ public class Robot extends TimedRobot
    * This function is called periodically during autonomous.
    */
   @Override
-  public void autonomousPeriodic() 
-
-
-  /////need to change this to sete the motor, not just pulse powered
+  public void autonomousPeriodic()
   {
     switch (m_autoSelected) {
       case kCustomAuto:
-      final DriveTrainCommand auto0 = new DriveTrainCommand();
-      auto0.autoMode = true;
-      auto0.forwardSpeedLeft = .5;
-      auto0.forwardSpeedRight = .5;
-      auto0.motorDriveCode();
-      // Hold motors at .5 power for 2 seconds then stop afterwards
-      auto0.forwardSpeedLeft = 0.0;
-      auto0.forwardSpeedRight = 0.0;
-      auto0.motorDriveCode();
-      auto0.autoMode = false;
-      System.out.println("auto mode enabled, kcuustom");
-      auto0.close();
-      break;
-    case kDefaultAuto:
-      final DriveTrainCommand auto = new DriveTrainCommand();
-      auto.autoMode = true;
-      auto.forwardSpeedLeft = .5;
-      auto.forwardSpeedRight = .5;
-      auto.motorDriveCode();
-      // Hold motors at .5 power for 2 seconds then stop afterwards
-      auto.forwardSpeedLeft = 0.0;
-      auto.forwardSpeedRight = 0.0;
-      auto.motorDriveCode();
-      auto.autoMode = false;
-      // System.out.println("auto mode enabled, kdefault");
-      auto.close();
-      break;
-    default:
-      // Put default auto code here
-      // Move the robot forward and stop after leaving line but before hitting middle
-      // area
-      try {
-        final DriveTrainCommand auto1 = new DriveTrainCommand();
-        auto1.autoMode = true;
-        auto1.forwardSpeedLeft = .5;
-        auto1.forwardSpeedRight = .5;
-        auto1.motorDriveCode();
+        final DriveTrainCommand auto0 = new DriveTrainCommand();
+        auto0.autoMode = true;
+        auto0.forwardSpeedLeft = .3;
+        auto0.forwardSpeedRight = .3;
+        auto0.motorDriveCode();
         // Hold motors at .5 power for 2 seconds then stop afterwards
-        Thread.sleep(2000);
-        auto1.forwardSpeedLeft = 0.0;
-        auto1.forwardSpeedRight = 0.0;
-        auto1.motorDriveCode();
-        auto1.autoMode = false;
-        System.out.println("auto mode enabled, default default");
-        auto1.close();
-      } catch (final InterruptedException e)
+        System.out.println("auto mode enabled, kcuustom");
+        break;
+      case kDefaultAuto:
+        final DriveTrainCommand auto = new DriveTrainCommand();
+        if (count < 200)
+        { 
+          auto.autoMode = true;
+          auto.forwardSpeedLeft = .3;
+          auto.forwardSpeedRight = .3;
+          auto.motorDriveCode();
+          // Hold motors at .5 power for 2 seconds then stop afterwards
+          System.out.println("auto mode enabled, kdefault");
+          count ++;
+          System.out.println(count);
+        } else 
         {
-          e.printStackTrace();
+          auto.forwardSpeedLeft = .0;
+          auto.forwardSpeedRight = .0;
+          auto.motorDriveCode();
+          auto.close();
         }
-      }  
-    
+        break;
+      default:  
+      // Put default auto code here
+      System.out.print("default");
+    }
+
   }
 
   /**
