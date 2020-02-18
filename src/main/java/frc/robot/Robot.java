@@ -6,9 +6,11 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+
 import java.lang.Thread;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -29,6 +31,7 @@ public class Robot extends TimedRobot
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  Command autonomousCommand;
 
   public static OI oi;
 
@@ -39,8 +42,10 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit() 
   {
+    
     CommandBase.init();
     oi = new OI();
+    //autonomousCommand = new AutoCommand();
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -90,7 +95,7 @@ public class Robot extends TimedRobot
   {
     switch (m_autoSelected) {
       case kCustomAuto:
-      DriveTrainCommand auto0 = new DriveTrainCommand();
+      final DriveTrainCommand auto0 = new DriveTrainCommand();
       auto0.autoMode = true;
       auto0.forwardSpeedLeft = .5;
       auto0.forwardSpeedRight = .5;
@@ -103,8 +108,8 @@ public class Robot extends TimedRobot
       System.out.println("auto mode enabled, kcuustom");
       auto0.close();
       break;
-      case kDefaultAuto:
-      DriveTrainCommand auto = new DriveTrainCommand();
+    case kDefaultAuto:
+      final DriveTrainCommand auto = new DriveTrainCommand();
       auto.autoMode = true;
       auto.forwardSpeedLeft = .5;
       auto.forwardSpeedRight = .5;
@@ -114,28 +119,28 @@ public class Robot extends TimedRobot
       auto.forwardSpeedRight = 0.0;
       auto.motorDriveCode();
       auto.autoMode = false;
-      //System.out.println("auto mode enabled, kdefault");
+      // System.out.println("auto mode enabled, kdefault");
       auto.close();
-        break;
-      default:
-        // Put default auto code here
-        // Move the robot forward and stop after leaving line but before hitting middle area
-        try
-        {
-          DriveTrainCommand auto1 = new DriveTrainCommand();
-          auto1.autoMode = true;
-          auto1.forwardSpeedLeft = .5;
-          auto1.forwardSpeedRight = .5;
-          auto1.motorDriveCode();
-          // Hold motors at .5 power for 2 seconds then stop afterwards
-          Thread.sleep(2000);
-          auto1.forwardSpeedLeft = 0.0;
-          auto1.forwardSpeedRight = 0.0;
-          auto1.motorDriveCode();
-          auto1.autoMode = false;
-          System.out.println("auto mode enabled, default default");
-          auto1.close();
-        } catch (InterruptedException e)
+      break;
+    default:
+      // Put default auto code here
+      // Move the robot forward and stop after leaving line but before hitting middle
+      // area
+      try {
+        final DriveTrainCommand auto1 = new DriveTrainCommand();
+        auto1.autoMode = true;
+        auto1.forwardSpeedLeft = .5;
+        auto1.forwardSpeedRight = .5;
+        auto1.motorDriveCode();
+        // Hold motors at .5 power for 2 seconds then stop afterwards
+        Thread.sleep(2000);
+        auto1.forwardSpeedLeft = 0.0;
+        auto1.forwardSpeedRight = 0.0;
+        auto1.motorDriveCode();
+        auto1.autoMode = false;
+        System.out.println("auto mode enabled, default default");
+        auto1.close();
+      } catch (final InterruptedException e)
         {
           e.printStackTrace();
         }

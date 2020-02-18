@@ -61,7 +61,7 @@ public class DriveTrainSubsystem extends Subsystem
         final double returnVar;
         if (slowMode == true)
         {
-            returnVar = speed * RobotMap.driveSlowMode;
+            returnVar = speed * .2;
             System.out.println("slow mode activated for " + side);
         }    
         else

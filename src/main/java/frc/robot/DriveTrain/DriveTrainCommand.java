@@ -46,7 +46,7 @@ public class DriveTrainCommand extends CommandBase
         safetyMod = driver.getRawButton(OI.rightBumper);
         cubicSafety = driver.getRawButton(OI.leftTrigger);
 
-
+        System.out.println(slowMode);
         checkBumpers();
         
         motorDriveCode();
