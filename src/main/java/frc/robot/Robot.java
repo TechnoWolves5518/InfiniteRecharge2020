@@ -114,10 +114,24 @@ public class Robot extends TimedRobot
           System.out.println("auto mode enabled, kdefault");
           count ++;
           System.out.println(count);
+        } else if (count <360)
+        {
+          auto.forwardSpeedLeft = -.3;
+          auto.forwardSpeedRight = .3;
+          auto.motorDriveCode();
+          count ++;
+          System.out.println(count);
+        } else if (count < 520)
+        {
+          auto.forwardSpeedLeft = .3;
+          auto.forwardSpeedRight = -.3;
+          auto.motorDriveCode();
+          count ++;
+          System.out.println(count);
         } else 
         {
-          auto.forwardSpeedLeft = .0;
-          auto.forwardSpeedRight = .0;
+          auto.forwardSpeedLeft = 0;
+          auto.forwardSpeedRight = 0;
           auto.motorDriveCode();
           auto.close();
         }
