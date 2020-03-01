@@ -1,0 +1,38 @@
+// Outside of Auto Periodic, inside Robot Init
+private int count;
+
+// Inside of Auto Init
+count = 0;
+
+// Inside of Auto Init, inits our DriveTrainCommand file
+final autoDrive = new DriveTrainCommand();
+
+
+if (count < 200)
+{
+
+  // This will be defined within the DriveTrainCommand file as "autoDriveForward", which will do the command below
+  public void autoDriveForward()
+  {
+    driveSubsystem.setMotors(0.25, "left", false, false, false);
+    driveSubsystem.setMotors(0.25, "right", false, false, false);
+  }
+  // And we will call it here
+  autoDrive.autoDriveForward();
+  // Increments counter
+  count++;
+}
+else
+{
+  // This will be defined within DriveTrainCommand as "StopMotorsNow", which will...
+  // We can also set a button to do this if we want? idk
+  public void StopMotorsNow()
+  {
+    driveSubsystem.setMotors(0, "left", false, false, false);
+    driveSubsystem.setMotors(0, "right", false, false, false);
+  }
+  // And we will call it here
+  autoDrive.StopMotorsNow();
+  // This should end the thing? idfk man
+  autoDrive.close();
+}
