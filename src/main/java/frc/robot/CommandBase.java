@@ -10,13 +10,13 @@ public abstract class CommandBase extends Command
 
     
     public static DriveTrainSubsystem driveSubsystem;
-    public static ColorSensorSubsystem colorSensorSubsystem;
+    // public static ColorSensorSubsystem colorSensorSubsystem;
     public static SpinnerMotorSubsystem spinnerSubsystem;
     
 
     public static void init() 
     {
-        colorSensorSubsystem = new ColorSensorSubsystem();
+        // colorSensorSubsystem = new ColorSensorSubsystem();
         spinnerSubsystem = new SpinnerMotorSubsystem();
         driveSubsystem = new DriveTrainSubsystem();
         

@@ -11,7 +11,7 @@ public class SpecialFunctions extends CommandBase
     public SpecialFunctions()
     {
         requires(spinnerSubsystem);
-        requires(colorSensorSubsystem);
+        // requires(colorSensorSubsystem);
 
         if (RobotMap.debug)
         {
@@ -33,31 +33,31 @@ public class SpecialFunctions extends CommandBase
     @Override
     protected void execute()
     {
-        checkSensor();
+        // checkSensor();
         motorSpinnerCode();
     }
 
-    public void checkSensor()
-    {
-        //if X button is pressed, transmit color data from sensor to laptop
-        if (sensorOn)
-        {
-            System.out.println("Starting transmission of Color Data.");
-            colorSensorSubsystem.printColor();
-        }
+    // public void checkSensor()
+    // {
+    //     //if X button is pressed, transmit color data from sensor to laptop
+    //     if (sensorOn)
+    //     {
+    //         System.out.println("Starting transmission of Color Data.");
+    //         colorSensorSubsystem.printColor();
+    //     }
         
 
         //if B button is pressed, stop transmitting color data from sensor
-        else if (sensorOff)
-        {
-            //System.out.println("Finished Transmitting, Press X to start again.");
-        }
-        else
-        {
-           // System.out.println("Sensor Not Activated");
-        }
+    //     else if (sensorOff)
+    //     {
+    //         //System.out.println("Finished Transmitting, Press X to start again.");
+    //     }
+    //     else
+    //     {
+    //        // System.out.println("Sensor Not Activated");
+    //     }
         
-    }
+    // }
 
     public void motorSpinnerCode()
     {
