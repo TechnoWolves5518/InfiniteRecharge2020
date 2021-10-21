@@ -1,4 +1,4 @@
-// Outside of Auto Periodic, inside Robot Init
+// Outside of Auto Periodic, inside Robot Init.Blargh
 private int count;
 
 // Inside of Auto Init
